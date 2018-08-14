@@ -5,7 +5,7 @@
 int main(){
     Game game;
     int col;
-    while(1){
+    while(!game.gameOver()){
         game.advanceGame();
         game.displayBoard();
         std::cout << "please enter the column number: ";
