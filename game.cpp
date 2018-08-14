@@ -19,10 +19,12 @@ void Game::displayBoard(){
     for(int row = 6; row >= 0; row--){
         for(int col = 0; col < 7; col++){
             std::cout << "|";
-            if(board[row][col]!=-1)
-                std::cout << board[row][col];
-            else
+            if(board[row][col] == -1)
                 std::cout << " ";
+            else if(board[row][col] == -3)
+                std::cout << "?";
+            else 
+                std::cout << board[row][col];
 
         }
         std::cout << "|";
@@ -46,13 +48,22 @@ void Game::advanceGame(){
     if(turn % 10 == 0){
         upRow();
     }
+    turn++;
     std::cout << std::endl;
     std::cout << "CURRENT TOKEN: " << currentToken << "   ";
     std::cout << "CURRENT SCORE: " << score<< std::endl;
 }
 
 void Game::upRow(){
-    
+    for(int row = 7; row >= 1; row--){
+        for(int col = 0; col < 7; col++){
+            board[row][col] = board[row-1][col];
+        }
+    }
+    for(int col = 0; col < 7; col++){
+        board[0][col] = -3;
+        positions[col]++;
+    }
 }
 
 void Game::placeToken(int col){
